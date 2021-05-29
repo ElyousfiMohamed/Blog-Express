@@ -35,8 +35,7 @@ module.exports = {
                 return User.find(email)
         },
         async addUser(user) {
-                var userA = await User.create(user)
-                return userA
+                await User.create(user).catch(err => err)
         },
         async updateUser(id, user) {
                 await User.update(user, {
@@ -45,7 +44,7 @@ module.exports = {
                         }
                 })
         },
-        async deleteUser() {
+        async deleteUser(id) {
                 return await User.destroy({
                         where : {
                                 id : id

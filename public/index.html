@@ -1,13 +1,65 @@
 <html>
 
 <head>
-  <title>Express</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>ELYOUSFI Mohamed - blog</title>
+  <link rel="stylesheet" href="./stylesheets/style.css">
+
+  <!-- bootstrap cdn -->
+  <link rel="stylesheet" 
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+  crossorigin="anonymous">
+
+  <!-- fontawesome cdn -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+  <script src="javascripts/index.js"></script>
+
 </head>
 
 <body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
+  <nav>
+    <ul>
+        <li> ELYOUSFI Mohamed  </li>
+        <li> <a href="https://github.com/ElyousfiMohamed/Blog-Express/tree/master" target="_blank"><i class="fab fa-github fa-lg"></i></a> </li>
+        <li> <a href="https://youtube.com/myvideohere" target="_blank"><i class="fab fa-youtube fa-lg"></i></i></a> </li>
+    </ul>
+  </nav>
+  <div class="container"><center><h1>MY SEQUELIZE PROJECT</h1>
+  <div class="child">
+    <h2>Menu pour les Utilisateurs</h2>
+    <a href="/users"><button class="btn btn-primary">afficher liste des utilisateurs</button></a>
+    <a href="/users"><button class="btn btn-success">ajouter un utilisateurs</button></a>
+    <a href="/users"><button class="btn btn-warning">modifier un utilisateur</button></a>
+    <button class="btn btn-danger" onclick="affiche()">supprimer un utilisateur</button><br><br>
+    <div id="usrDele" style="display: none;"><input type="number" name="usrDel" id="usdel" placeholder="ID D'UTILISATEUR A SUPPRIMER" style="width: 400px;" onkeyup="redirect()"> <a href="/users/48" data-method="delete" id="usdeel">supprimer</a></div>
+  </div><br>
+
+  <div class="child">
+    <h2>Menu pour les Articles</h2>
+    <a href="/users"><button class="btn btn-primary">afficher liste des Articles</button></a>
+    <a href="/users"><button class="btn btn-success">ajouter un Article</button></a>
+    <a href="/users"><button class="btn btn-warning">modifier un Article</button></a>
+    <a href="/users"><button class="btn btn-danger">supprimer un Article</button></a>
+  </div><br>
+
+  <div class="child">
+    <h2>Menu pour les Comments</h2>
+    <a href="/users"><button class="btn btn-primary">afficher liste des Comments</button></a>
+    <a href="/users"><button class="btn btn-success">ajouter un Comment</button></a>
+    <a href="/users"><button class="btn btn-warning">modifier un Comment</button></a>
+    <a href="/users"><button class="btn btn-danger">supprimer un Comment</button></a>
+  </div><br>
+
+  <div class="child">
+    <h2>Menu pour les Tags</h2>
+    <a href="/users"><button class="btn btn-primary">afficher liste des Tags</button></a>
+    <a href="/users"><button class="btn btn-success">ajouter un Tag</button></a>
+    <a href="/users"><button class="btn btn-warning">modifier un Tag</button></a>
+    <a href="/users"><button class="btn btn-danger">supprimer un Tag</button></a>
+  </div>
+</center></div>
 </body>
     
 </html>
