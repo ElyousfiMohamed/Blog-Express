@@ -14,8 +14,6 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-  <script src="javascripts/index.js"></script>
-
 </head>
 
 <body>
@@ -29,37 +27,66 @@
   <div class="container"><center><h1>MY SEQUELIZE PROJECT</h1>
   <div class="child">
     <h2>Menu pour les Utilisateurs</h2>
-    <a href="/users"><button class="btn btn-primary">afficher liste des utilisateurs</button></a>
-    <a href="/users"><button class="btn btn-success">ajouter un utilisateurs</button></a>
-    <a href="/users"><button class="btn btn-warning">modifier un utilisateur</button></a>
-    <button class="btn btn-danger" onclick="affiche()">supprimer un utilisateur</button><br><br>
-    <div id="usrDele" style="display: none;"><input type="number" name="usrDel" id="usdel" placeholder="ID D'UTILISATEUR A SUPPRIMER" style="width: 400px;" onkeyup="redirect()"> <a href="/users/48" data-method="delete" id="usdeel">supprimer</a></div>
+    <button class="btn btn-primary" onclick="displayUsers()">afficher liste des utilisateurs</button>
+    <button class="btn btn-success" onclick="affiche('1')">ajouter un utilisateurs</button>
+    <button class="btn btn-warning" onclick="affiche('2')">modifier un utilisateur</button>
+    <button class="btn btn-danger" onclick="affiche('3')">supprimer un utilisateur</button><br><br>
+    
+    <div id="1">
+      <input type="text" id="username" placeholder="USERNAME" class="form-control"><br>
+      <input type="email" id="email" placeholder="EMAIL" class="form-control"><br>
+      <input type="password" id="password" placeholder="PASSWORD" class="form-control"><br>
+      <input type="text" id="role" placeholder="ROLE {admin, author, guest}" class="form-control"><br><br>
+      <button class="btn btn-success" onclick="addUser()">ajouter</button>
+    </div>
+      
+    <div id="2">
+      <input type="number" id="id" placeholder="ID D'UTILISATEUR A MODIFIER"><br>
+      <input type="text" id="newusername" placeholder="USERNAME"><br>
+      <input type="email" id="newemail" placeholder="EMAIL"><br>
+      <input type="password" id="newpassword" placeholder="PASSWORD"><br>
+      <input type="text" id="newrole" placeholder="ROLE {admin, author, guest}"><br><br>
+      <button class="btn btn-success" onclick="updateUser()">modifier</button>
+    </div>
+
+    <div id="3" style="display: none;">
+      <input type="number" id="idUserDelete" placeholder="ID D'UTILISATEUR A SUPPRIMER"><br><br>
+      <button class="btn btn-success" onclick="deleteUser()">supprimer</button>
+    </div>
+
+    <div id="list" class="table">
+
+    </div>
   </div><br>
 
   <div class="child">
     <h2>Menu pour les Articles</h2>
     <a href="/users"><button class="btn btn-primary">afficher liste des Articles</button></a>
-    <a href="/users"><button class="btn btn-success">ajouter un Article</button></a>
-    <a href="/users"><button class="btn btn-warning">modifier un Article</button></a>
-    <a href="/users"><button class="btn btn-danger">supprimer un Article</button></a>
+    <button class="btn btn-success">ajouter un Article</button>
+    <a><button class="btn btn-warning">modifier un Article</button></a>
+    <a><button class="btn btn-danger">supprimer un Article</button></a>
   </div><br>
 
   <div class="child">
     <h2>Menu pour les Comments</h2>
     <a href="/users"><button class="btn btn-primary">afficher liste des Comments</button></a>
-    <a href="/users"><button class="btn btn-success">ajouter un Comment</button></a>
-    <a href="/users"><button class="btn btn-warning">modifier un Comment</button></a>
-    <a href="/users"><button class="btn btn-danger">supprimer un Comment</button></a>
+    <a><button class="btn btn-success">ajouter un Comment</button></a>
+    <a><button class="btn btn-warning">modifier un Comment</button></a>
+    <a><button class="btn btn-danger">supprimer un Comment</button></a>
   </div><br>
 
   <div class="child">
     <h2>Menu pour les Tags</h2>
     <a href="/users"><button class="btn btn-primary">afficher liste des Tags</button></a>
-    <a href="/users"><button class="btn btn-success">ajouter un Tag</button></a>
-    <a href="/users"><button class="btn btn-warning">modifier un Tag</button></a>
-    <a href="/users"><button class="btn btn-danger">supprimer un Tag</button></a>
+    <a><button class="btn btn-success">ajouter un Tag</button></a>
+    <a><button class="btn btn-warning">modifier un Tag</button></a>
+    <a><button class="btn btn-danger">supprimer un Tag</button></a>
   </div>
 </center></div>
+
+  <script src="./javascripts/index.js">
+
+  </script>
 </body>
     
 </html>

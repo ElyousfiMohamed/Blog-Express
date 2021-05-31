@@ -26,6 +26,10 @@ h5 {
   display: inline;
 }
 
+input {
+  width: 400px;
+}
+
 nav ul {
   list-style: none;
   display: flex;
@@ -59,4 +63,10 @@ a i.fa-youtube:hover {
 
 .usrrr input{
   width: 500px;
+}
+
+.table {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
 }

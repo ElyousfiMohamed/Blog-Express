@@ -6,55 +6,45 @@ const usersRepo = require('../repositories/users')
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     usersRepo.getAllUsers().then(function (result) {
-      let tb = Object.keys(result)
-      let usersList;
-      usersList = '<center><h1 style="font-size :40px">Liste des utilisateurs</h1><table border="1" style="border-spacing:0px;" cellpadding="10">'
-      usersList += '<tr> <td><b>id</b></td> <td><b>username</b></td> <td><b>email</b></td> <td><b>role</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
-      for(i=0;i<tb.length;i++){
-        usersList += '<tr> <td>'+result[i].id.toString()+'</td><td>'+result[i].username+'</td> <td>'+result[i].email+'</td> <td>'+result[i].role+'</td> <td>'+result[i].createdAt+'</td> <td>'+result[i].updatedAt+'</td> </tr>'
-      }
-      usersList += "</table></center>"
-      res.send(usersList)
+      res.send(result)
     }).catch(err => console.log(err))
-})
-router.post('/add', (req, res) => {
+}).post('/', (req, res) => {
+    const datareq = req.body;
     const data = {
-      username : 'mohamed',
-      email : 'mohamed@gmail.com',
-      password : 'simo1234',
-      role : 'guest',
+      username : datareq.username,
+      email : datareq.email,
+      password : datareq.password,
+      role : datareq.role,
       createdAt : new Date(),
       updatedAt : new Date()
     }
 
-    let {username, email, password, role, createdAt, updatedAt} = data;
-
-    usersRepo.addUser({
-        username, 
-        email, 
-        password, 
-        role, 
-        createdAt, 
-        updatedAt
-    }) 
+    usersRepo.addUser(data) 
     .catch(err => console.log(err))
 
-    usersRepo.addUser(req.body)
     res.send('user added')
-})
-/*router.put('/', function(req, res) {
-  usersRepo.updateUser(req.body)
-  res.send('user updated')
-})*/
+}).put('/', function(req, res) {
+    const datareq = req.body;
+    const data = {
+      username : datareq.username,
+      email : datareq.email,
+      password : datareq.password,
+      role : datareq.role,
+      updatedAt : new Date()
+    }
 
-router.route('/:id')
-  .get((req,res)=>{
-    usersRepo.getUser(req.params.id).then(function (result) {
+    usersRepo.updateUser(datareq.id,data) 
+    .catch(err => console.log(err))
+
+    res.send('user updated')
+})
+
+router.route('/:id').get((req,res)=>{
+    usersRepo.getUser(req.body.id).then(function (result) {
       res.send(result)
     }).catch(err => console.log(err))
-  })
-  .delete((req,res)=>{
-    usersRepo.deleteUser(req.params.id) 
+  }).delete((req,res)=>{
+    usersRepo.deleteUser(req.body.id) 
     res.send('Utilisateur supprimé')
   })
 
