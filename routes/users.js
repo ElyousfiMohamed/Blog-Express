@@ -2,6 +2,8 @@ var express = require('express');
 const user = require('../models/user');
 var router = express.Router();
 const usersRepo = require('../repositories/users')
+const articlesRepo = require('../repositories/articles')
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -40,12 +42,38 @@ router.get('/', function(req, res, next) {
 })
 
 router.route('/:id').get((req,res)=>{
-    usersRepo.getUser(req.body.id).then(function (result) {
+    usersRepo.getUser(req.params.id).then(function (result) {
       res.send(result)
     }).catch(err => console.log(err))
-  }).delete((req,res)=>{
+  })
+
+router.route('/:id').delete((req,res)=>{
     usersRepo.deleteUser(req.body.id) 
     res.send('Utilisateur supprimé')
+  })
+
+router.get('/:id/admins', function(req, res, next) {
+    usersRepo.getAdmins().then(function (result) {
+      res.send(result)
+    }).catch(err => console.log(err))
+})
+
+router.get('/:id/authors', function(req, res, next) {
+  usersRepo.getAuthors().then(function (result) {
+    res.send(result)
+  }).catch(err => console.log(err))
+})
+
+router.get('/:id/guests', function(req, res, next) {
+  usersRepo.getGuests().then(function (result) {
+    res.send(result)
+  }).catch(err => console.log(err))
+})
+
+router.route('/:id/articles').get((req,res)=>{
+    articlesRepo.getUserArticles(req.params.id).then(function (result) {
+      res.send(result)
+    }).catch(err => console.log(err))
   })
 
 module.exports = router;

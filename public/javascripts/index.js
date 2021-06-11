@@ -1,11 +1,26 @@
-document.getElementById('list').style.display = "none"
-document.getElementById('1').style.display = "none"
-document.getElementById('2').style.display = "none"
-document.getElementById('3').style.display = "none"
+document.getElementById('listUsers').style.display = "none"
+document.getElementById('listArticles').style.display = "none"
+document.getElementById('listTags').style.display = "none"
+document.getElementById('listComments').style.display = "none"
+
+for(var i=1;i<=14;i++)
+  document.getElementById(i).style.display = "none"
+
+  
+function affiche(a) {
+  let div =  document.getElementById(a)
+
+  if(div.style.display == "none")
+    div.style.display = "inline";
+  else
+    div.style.display = "none";
+}
 
 
+/* partie users */
 function displayUsers() {
-  let list = document.getElementById('list')
+  let list = document.getElementById('listUsers')
+  list.innerHTML = ""
 
   if(list.style.display == "none")
         list.style.display = "block"
@@ -17,7 +32,7 @@ function displayUsers() {
   .then(function(data) {
     let tb = Object.keys(data)
       let usersList;
-      usersList = '<center><h1>Liste des utilisateurs</h1><table class="table table-bordered">'
+      usersList = '<center><h1>Liste des Utilisateurs</h1><table class="table table-bordered">'
       usersList += '<tr> <td><b>id</b></td> <td><b>username</b></td> <td><b>email</b></td> <td><b>role</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
       for(i=0;i<tb.length;i++){
         usersList += '<tr> <td>'+data[i].id+'</td><td>'+data[i].username+'</td> <td>'+data[i].email+'</td> <td>'+data[i].role+'</td> <td>'+data[i].createdAt+'</td> <td>'+data[i].updatedAt+'</td> </tr>'
@@ -45,7 +60,7 @@ function addUser() {
 }
 
 function updateUser() {
-  const id = document.getElementById('id').value;
+  const id = document.getElementById('iduser').value;
   const username = document.getElementById('newusername').value;
   const email = document.getElementById('newemail').value;
   const password = document.getElementById('newpassword').value;
@@ -74,12 +89,330 @@ function deleteUser() {
   fetch('/users/:id', options)
 }
 
-function affiche(a) {
-  let div =  document.getElementById(a)
+/* partie articles */
+function displayArticles() {
+  let list = document.getElementById('listArticles')
+  list.innerHTML = ""
 
-  if(div.style.display == "none")
-    div.style.display = "inline";
-  else
-    div.style.display = "none";
+  if(list.style.display == "none")
+        list.style.display = "block"
+      else
+        list.style.display = "none"
+
+  fetch('/articles')
+  .then(res => res.json())
+  .then(function(data) {
+    let tb = Object.keys(data)
+      let articlesList;
+      articlesList = '<center><h1>Liste des Articles</h1><table class="table table-bordered">'
+      articlesList += '<tr> <td><b>id</b></td> <td><b>title</b></td> <td><b>content</b></td> <td><b>published</b></td> <td><b>UserId</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
+      for(i=0;i<tb.length;i++){
+        articlesList += '<tr> <td>'+data[i].id+'</td><td>'+data[i].title+'</td> <td>'+data[i].content+'</td> <td>'+data[i].published+'</td> <td>'+data[i].UserId+'</td> <td>'+data[i].createdAt+'</td> <td>'+data[i].updatedAt+'</td> </tr>'
+      }
+      articlesList += "</table></center>"
+      list.innerHTML = articlesList
+  })
+} 
+
+function addArticle() {
+  const title = document.getElementById('title').value;
+  const content = document.getElementById('content').value;
+  const published = document.getElementById('published').value;
+  const UserId = document.getElementById('UserId').value;
+
+  const data = { title, content, published, UserId}
+  const options = {
+    method : 'POST',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(data)
+  }
+  fetch('/articles', options)
 }
 
+function updateArticle() {
+  const id = document.getElementById('idarticle').value;
+  const title = document.getElementById('newtitle').value;
+  const content = document.getElementById('newcontent').value;
+  const published = document.getElementById('newpublished').value;
+  const UserId = document.getElementById('newUserId').value;
+  const data = {id, title, content, published, UserId}
+  const options = {
+    method : 'PUT',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(data)
+  }
+  fetch('/articles', options)
+}
+
+function deleteArticle() {
+  const id = document.getElementById('idArticleDelete').value;
+  const data = {id}
+  const options = {
+    method : 'Delete',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(data)
+  }
+  fetch('/articles/:id', options)
+}
+
+/* partie tags */
+function displayTags() {
+  let list = document.getElementById('listTags')
+
+  if(list.style.display == "none")
+        list.style.display = "block"
+      else
+        list.style.display = "none"
+
+  fetch('/tags')
+  .then(res => res.json())
+  .then(function(data) {
+    let tb = Object.keys(data)
+      let tagsList;
+      tagsList = '<center><h1>Liste des Tags</h1><table class="table table-bordered">'
+      tagsList += '<tr> <td><b>id</b></td> <td><b>name</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
+      for(i=0;i<tb.length;i++){
+        tagsList += '<tr> <td>'+data[i].id+'</td><td>'+data[i].name+'</td> <td>'+data[i].createdAt+'</td> <td>'+data[i].updatedAt+'</td> </tr>'
+      }
+      tagsList += "</table></center>"
+      list.innerHTML = tagsList
+  })
+} 
+
+function addTag() {_
+  const name = document.getElementById('name').value;
+
+  const data = { name }
+  const options = {
+    method : 'POST',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(data)
+  }
+  fetch('/tags', options)
+}
+
+function updateTag() {
+  const id = document.getElementById('idtag').value;
+  const name = document.getElementById('newname').value;
+  const data = {id, name}
+  const options = {
+    method : 'PUT',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(data)
+  }
+  fetch('/tags', options)
+}
+
+function deleteTag() {
+  const id = document.getElementById('idTagDelete').value;
+  const data = {id}
+  const options = {
+    method : 'Delete',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(data)
+  }
+  fetch('/tags/:id', options)
+}
+
+/* partie comments */
+function displayComments() {
+  let list = document.getElementById('listComments')
+
+  if(list.style.display == "none")
+        list.style.display = "block"
+      else
+        list.style.display = "none"
+
+  fetch('/comments')
+  .then(res => res.json())
+  .then(function(data) {
+    let tb = Object.keys(data)
+      let commentsList = '<center><h1>Liste des Comments</h1><table class="table table-bordered">'
+      commentsList += '<tr> <td><b>id</b></td> <td><b>content</b></td> <td><b>ArticleId</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
+      for(i=0;i<tb.length;i++){
+        commentsList += '<tr> <td>'+data[i].id+'</td> <td>'+data[i].content+'</td> <td>'+data[i].ArticleId+'</td> <td>'+data[i].createdAt+'</td> <td>'+data[i].updatedAt+'</td> </tr>'
+      }
+      commentsList += "</table></center>"
+      list.innerHTML = commentsList
+  })
+} 
+
+function addComment() {
+  const content = document.getElementById('contentt').value;
+  const ArticleId = document.getElementById('ArticleId').value;
+
+  const data = { content, ArticleId}
+  const options = {
+    method : 'POST',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(data)
+  }
+  fetch('/comments', options)
+}
+
+function updateComment() {
+  const id = document.getElementById('idcomment').value;
+  const content = document.getElementById('newcontentt').value;
+  const ArticleId = document.getElementById('newArticleId').value;
+  const data = {id, content,ArticleId}
+  const options = {
+    method : 'PUT',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(data)
+  }
+  fetch('/comments', options)
+}
+
+function deleteComment() {
+  const id = document.getElementById('idCommentDelete').value;
+  const data = {id}
+  const options = {
+    method : 'Delete',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(data)
+  }
+  fetch('/comments/:id', options)
+}
+
+// getUserArticles
+function getUserArticles() {
+  let list = document.getElementById('listUsers')
+  list.innerHTML = ""
+
+  if(list.style.display == "none")
+        list.style.display = "block"
+      else
+        list.style.display = "none"
+  
+  let id = document.getElementById('idUserArticles').value
+
+  fetch('/users/'+id+'/articles')
+  .then(res => res.json())
+  .then(function(data) {
+    let tb = Object.keys(data)
+      let articlesList;
+      articlesList = '<center><h1>Liste des Articles</h1><table class="table table-bordered">'
+      articlesList += '<tr> <td><b>id</b></td> <td><b>title</b></td> <td><b>content</b></td> <td><b>published</b></td> <td><b>UserId</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
+      for(i=0;i<tb.length;i++){
+        articlesList += '<tr> <td>'+data[i].id+'</td><td>'+data[i].title+'</td> <td>'+data[i].content+'</td> <td>'+data[i].published+'</td> <td>'+data[i].UserId+'</td> <td>'+data[i].createdAt+'</td> <td>'+data[i].updatedAt+'</td> </tr>'
+      }
+      articlesList += "</table></center>"
+      list.innerHTML = articlesList
+  })
+}
+
+function getArticleComments() {
+  let list = document.getElementById('listArticles')
+  list.innerHTML = ""
+
+  if(list.style.display == "none")
+        list.style.display = "block"
+      else
+        list.style.display = "none"
+  
+  let id = document.getElementById('idArticleComments').value
+
+  fetch('/articles/'+id+'/comments')
+  .then(res => res.json())
+  .then(function(data) {
+    let tb = Object.keys(data)
+      let commentsList = '<center><h1>Liste des Comments</h1><table class="table table-bordered">'
+      commentsList += '<tr> <td><b>id</b></td> <td><b>content</b></td> <td><b>ArticleId</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
+      for(i=0;i<tb.length;i++){
+        commentsList += '<tr> <td>'+data[i].id+'</td> <td>'+data[i].content+'</td> <td>'+data[i].ArticleId+'</td> <td>'+data[i].createdAt+'</td> <td>'+data[i].updatedAt+'</td> </tr>'
+      }
+      commentsList += "</table></center>"
+      list.innerHTML = commentsList
+  })
+}
+
+// get user by role 
+function displayAdmins() {
+  let list = document.getElementById('listUsers')
+  list.innerHTML = ""
+
+  if(list.style.display == "none")
+        list.style.display = "block"
+      else
+        list.style.display = "none"
+
+  fetch('/users/:id/admins')
+  .then(res => res.json())
+  .then(function(data) {
+    let tb = Object.keys(data)
+      let usersList;
+      usersList = '<center><h1>Liste des Admins</h1><table class="table table-bordered">'
+      usersList += '<tr> <td><b>id</b></td> <td><b>username</b></td> <td><b>email</b></td> <td><b>role</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
+      for(i=0;i<tb.length;i++){
+        usersList += '<tr> <td>'+data[i].id+'</td><td>'+data[i].username+'</td> <td>'+data[i].email+'</td> <td>'+data[i].role+'</td> <td>'+data[i].createdAt+'</td> <td>'+data[i].updatedAt+'</td> </tr>'
+      }
+      usersList += "</table></center>"
+      list.innerHTML = usersList
+  })
+}
+
+function displayAuthors() {
+  let list = document.getElementById('listUsers')
+  list.innerHTML = ""
+
+  if(list.style.display == "none")
+        list.style.display = "block"
+      else
+        list.style.display = "none"
+
+  fetch('/users/:id/authors')
+  .then(res => res.json())
+  .then(function(data) {
+    let tb = Object.keys(data)
+      let usersList;
+      usersList = '<center><h1>Liste des Auteurs</h1><table class="table table-bordered">'
+      usersList += '<tr> <td><b>id</b></td> <td><b>username</b></td> <td><b>email</b></td> <td><b>role</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
+      for(i=0;i<tb.length;i++){
+        usersList += '<tr> <td>'+data[i].id+'</td><td>'+data[i].username+'</td> <td>'+data[i].email+'</td> <td>'+data[i].role+'</td> <td>'+data[i].createdAt+'</td> <td>'+data[i].updatedAt+'</td> </tr>'
+      }
+      usersList += "</table></center>"
+      list.innerHTML = usersList
+  })
+}
+
+function displayGuests() {
+  let list = document.getElementById('listUsers')
+  list.innerHTML = ""
+
+  if(list.style.display == "none")
+        list.style.display = "block"
+      else
+        list.style.display = "none"
+
+  fetch('/users/:id/guests')
+  .then(res => res.json())
+  .then(function(data) {
+    let tb = Object.keys(data)
+      let usersList;
+      usersList = '<center><h1>Liste des Guests</h1><table class="table table-bordered">'
+      usersList += '<tr> <td><b>id</b></td> <td><b>username</b></td> <td><b>email</b></td> <td><b>role</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
+      for(i=0;i<tb.length;i++){
+        usersList += '<tr> <td>'+data[i].id+'</td><td>'+data[i].username+'</td> <td>'+data[i].email+'</td> <td>'+data[i].role+'</td> <td>'+data[i].createdAt+'</td> <td>'+data[i].updatedAt+'</td> </tr>'
+      }
+      usersList += "</table></center>"
+      list.innerHTML = usersList
+  })
+}

@@ -51,12 +51,12 @@ module.exports = {
                         }
                 })  
         },
-        // D'autres méthodes jugées utiles
 
+        // D'autres méthodes jugées utiles
         async getUsersByRole(role) {
                 return await User.findAll({
-                        where: {
-                                role: role
+                        where : {
+                                role : role
                         }
                 })
         }
