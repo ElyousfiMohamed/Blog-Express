@@ -32,7 +32,7 @@ function displayUsers() {
   .then(function(data) {
     let tb = Object.keys(data)
       let usersList;
-      usersList = '<center><h1>Liste des Utilisateurs</h1><table class="table table-bordered">'
+      usersList = '<center><h1>Liste des Utilisateurs</h1><table id="myTable" class="table table-bordered">'
       usersList += '<tr> <td><b>id</b></td> <td><b>username</b></td> <td><b>email</b></td> <td><b>role</b></td> <td><b>createdAt</b></td> <td><b>updatedAt</b></td> </tr>'
       for(i=0;i<tb.length;i++){
         usersList += '<tr> <td>'+data[i].id+'</td><td>'+data[i].username+'</td> <td>'+data[i].email+'</td> <td>'+data[i].role+'</td> <td>'+data[i].createdAt+'</td> <td>'+data[i].updatedAt+'</td> </tr>'
@@ -185,7 +185,7 @@ function displayTags() {
   })
 } 
 
-function addTag() {_
+function addTag() {
   const name = document.getElementById('name').value;
 
   const data = { name }
@@ -416,3 +416,44 @@ function displayGuests() {
       list.innerHTML = usersList
   })
 }
+
+//pagination 
+/*var table = '#myTable';
+$('displayPag').on('load',function () {
+  $('.pagination').html('')
+  var trnum = 0;
+  var maxRows = 10;
+  var totalRows = $(table+' tbody tr').length
+  $(table+' tr:gt(0)').each(function () {
+    trnum++
+    if(trnum > maxRows) {
+      $(this).hide()
+    }
+    if(trnum > maxRows) {
+      $(this).show()
+    }
+  })
+  if(totalRows > maxRows) {
+    var pagnum = Math.ceil(totalRows/maxRows)
+    for(var i=1;i<pagnum;) {
+      $('.pagination').append('<li data-page="'+i+'">\<span>'+ i++ + '<span class="sr-only">(cuurrent)</span></span>\</li>').show()
+    }
+  }
+  $('.pagination li:first-child').addClass('active')
+  $('.pagination li:first-child').on('click',function () {
+      var pageNum = $(this).attr('data-page')
+      var trIndex = 0
+      $('.pagination li').removeClass('active')
+      $(this).addClass('active')
+      $(table+' tr:gt(0)').each(function (){
+        trIndex++
+        if(trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)) {
+          $(this).hide()
+        }else {
+          $(this).show()
+        }
+      })
+  })
+})*/
+
+

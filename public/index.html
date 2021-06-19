@@ -21,13 +21,13 @@
     <ul>
         <li> ELYOUSFI Mohamed  </li>
         <li> <a href="https://github.com/ElyousfiMohamed/Blog-Express/tree/master" target="_blank"><i class="fab fa-github fa-lg"></i></a> </li>
-        <li> <a href="https://youtube.com/myvideohere" target="_blank"><i class="fab fa-youtube fa-lg"></i></i></a> </li>
+        <li> <a href="https://youtu.be/ir9NGpYNpgo" target="_blank"><i class="fab fa-youtube fa-lg"></i></i></a> </li>
     </ul>
   </nav>
   <div class="container"><center><h1>MY SEQUELIZE PROJECT</h1>
   <div class="child">
     <h2>Menu pour les Utilisateurs</h2>
-    <button class="btn btn-primary" onclick="displayUsers()">afficher liste des utilisateurs</button>
+    <button class="btn btn-primary" onclick="displayUsers()" id="displayPag">afficher liste des utilisateurs</button>
     <button class="btn btn-secondary" onclick="affiche('13')">articles d'un utilisateur</button>
     <button class="btn btn-success" onclick="affiche('1')">ajouter un utilisateurs</button>
     <button class="btn btn-warning" onclick="affiche('2')">modifier un utilisateur</button>
@@ -64,6 +64,11 @@
     </div>
     <div id="listUsers" class="table">
 
+      <div class="pagination-container">
+          <nav>
+            <ul class="pagination"></ul>
+          </nav>
+      </div>
     </div>
   </div><br>
 
@@ -168,9 +173,7 @@
   </div>
 </center></div>
 
-  <script src="./javascripts/index.js">
-
-  </script>
+  <script src="./javascripts/index.js"></script>
 </body>
     
 </html>
